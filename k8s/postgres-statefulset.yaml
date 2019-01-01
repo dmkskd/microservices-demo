@@ -3,7 +3,7 @@ kind: StatefulSet
 metadata:
   annotations:
   labels:
-    run: postgres
+    app: postgres
   name: postgres
   namespace: default
 spec:
@@ -11,12 +11,12 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      run: postgres
+      app: postgres
   serviceName: postgres
   template:
     metadata:
       labels:
-        run: postgres
+        app: postgres
     spec:
       containers:
       - image: postgres:10
