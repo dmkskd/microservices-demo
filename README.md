@@ -35,7 +35,9 @@ Please specify the followings in [k8s.env](k8s.env):
 - GKE_PROJECT
 - GKE_ZONE
 
-run `./run_demo.sh`
+Then run:
+
+./[run_demo.sh](run_demo.sh)
 
 It will perform the following:
 - check all the needed tools are ensure_tools_are_installed
@@ -56,10 +58,10 @@ You can also access the frontend by using a proxy with:
 
 `kubectl port-forward service/frontend 5050:80`
 
-And point your browser to http://localhost:5050
+And point your browser to <http://localhost:5050>
 
 ## Cleanup
 
 To remove the cluster:
 
-`./cleanup.sh`
+./[cleanup.sh](cleanup.sh)
