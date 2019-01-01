@@ -34,8 +34,25 @@ gcloud container \
 
 function deploy_k8s_manifests
 {
-  echo "Deploying k8s manifests"
+  echo "*** Deploying k8s manifests"
   kubectl apply -f k8s/
+}
+
+function wait_for_k8s_services
+{
+  echo "*** Waiting for k8s services to be up and running"
+  echo "Sleeping for 60 seconds ..."
+  sleep 60
+  FRONTEND_IP=$(kubectl get ingresses.extensions -o=custom-columns="ADDRESS:.status.loadBalancer.ingress[0].ip" | tail -1)
+  echo "
+frontend should be accessible at http://${FRONTEND_IP} in few minutes
+
+You can access the frontend by using a proxy with:
+
+kubectl port-forward service/frontend 5050:80
+
+And point your browser to http://localhost:5050
+"
 }
 
 function main
@@ -44,6 +61,7 @@ function main
   ensure_tools_are_installed
   create_k8_cluster
   deploy_k8s_manifests
+  wait_for_k8s_services
 }
 
 main "$@"
