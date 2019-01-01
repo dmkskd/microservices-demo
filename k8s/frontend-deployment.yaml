@@ -1,0 +1,52 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+  labels:
+    app: frontend
+  name: frontend
+  namespace: default
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - image: groovy
+        imagePullPolicy: IfNotPresent
+        name: frontend
+        args: ['groovy', '/scripts/frontend_groovy.sh']
+        ports:
+        - containerPort: 5432
+          protocol: TCP
+        env:
+        - name: BACKEND_URL
+          value: "http://backend"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 5050
+            scheme: HTTP
+          initialDelaySeconds: 60
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 5050
+            scheme: HTTP
+          initialDelaySeconds: 60
+        volumeMounts:
+        - name: scripts
+          mountPath: /scripts
+        resources: {}
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: scripts
+          configMap:
+            name: frontend-config
+            defaultMode: 0744

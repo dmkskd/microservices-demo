@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-config
+  labels:
+    app: frontend
+data:
+  frontend_groovy.sh: |
+    @GrabConfig(systemClassLoader=true)
+    @Grab('io.ratpack:ratpack-groovy:1.6.0')
+    @Grab('org.slf4j:slf4j-simple:1.7.25')
+
+    import static ratpack.groovy.Groovy.ratpack
+
+    println "Starting the frontend ..."
+
+    def env = System.getenv()
+
+    ratpack {
+        handlers {
+            get {
+                def backendResponse = "${env['BACKEND_URL']}".toURL().text
+                render "${env['HOSTNAME']} - ${backendResponse}"
+            }
+        }
+    }
