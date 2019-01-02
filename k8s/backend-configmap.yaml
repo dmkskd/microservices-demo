@@ -5,7 +5,7 @@ metadata:
   labels:
     app: backend
 data:
-  backend_groovy.sh: |
+  backend.groovy: |
     @GrabConfig(systemClassLoader=true)
     @Grab(group='org.postgresql', module='postgresql', version='9.4-1205-jdbc42')
     @Grab('io.ratpack:ratpack-groovy:1.6.0')

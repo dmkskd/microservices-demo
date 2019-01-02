@@ -20,7 +20,7 @@ spec:
       - image: groovy
         imagePullPolicy: IfNotPresent
         name: backend
-        args: ['groovy', '/scripts/backend_groovy.sh']
+        args: ['groovy', '/scripts/backend.groovy']
         ports:
         - containerPort: 5432
           protocol: TCP
