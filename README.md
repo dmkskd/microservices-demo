@@ -65,3 +65,7 @@ And point your browser to <http://localhost:5050>
 To remove the cluster:
 
 ./[cleanup.sh](cleanup.sh)
+
+## Issues and enhancements
+
+See a list of [issues and enhancements](https://github.com/dmkskd/microservices-demo/issues)
